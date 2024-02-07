@@ -24,6 +24,8 @@ import {
     ChevronDownIcon,
     ChevronRightIcon,
 } from '@chakra-ui/icons'
+import { Signup } from './Signup'
+import { Login } from './Login'
 
 export const Navbar = () => {
     const { isOpen, onToggle } = useDisclosure()
@@ -98,20 +100,15 @@ export const Navbar = () => {
                         <Divider color={"black"} orientation='vertical' />
                     </Center>
                     <Button color={"#2c3338"} as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href={'#'}>
-                        Sign In
+                        <Login />
                     </Button>
-                    <Button
-                        as={'a'}
-                        display={{ base: 'none', md: 'inline-flex' }}
-                        fontSize={'sm'}
-                        fontWeight={600}
-                        color={'white'}
-                        bg={'blue.500'}
-                        href={'#'}
-                        _hover={{
+                    <Button 
+                    bg={'blue.500'}
+                    _hover={{
                             bg:'teal.400'
-                        }}>
-                        Sign Up
+                        }}
+                    >
+                        <Signup />
                     </Button>
                 </Stack>
             </Flex>

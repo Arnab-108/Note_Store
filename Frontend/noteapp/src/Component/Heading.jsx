@@ -1,5 +1,6 @@
 import { Box, Button, Center, Heading, Text } from '@chakra-ui/react'
 import React from 'react'
+import { Signup } from './Signup'
 
 export const Header = () => {
     return (
@@ -27,17 +28,14 @@ export const Header = () => {
             <Box pos={"relative"} top={"9vh"}>
                 <Center>
                     <Button
-                        fontSize={'sm'}
-                        fontWeight={600}
-                        width={"7vw"}
-                        borderRadius={"4px"}
-                        color={'white'}
                         bg={'blue.500'}
-                        href={'#'}
+                        
                         _hover={{
                             bg: 'teal.400'
                         }}
-                    >Sign up</Button>
+                    >
+                        <Signup />
+                    </Button>
                 </Center>
             </Box>
 
