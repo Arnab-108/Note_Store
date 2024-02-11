@@ -29,12 +29,12 @@ const Login = async (req, res) => {
         
         if (user) {
             bcrypt.compare(password, user.password, (err, result) => {
-                if (result) {
+                if(result) {
                     const token = jwt.sign({ user_id: user._id, user_name: user.name, avatar: user.avatar }, "indi", {
                         expiresIn: "2d"
                     })
 
-                    res.status(200).send({msg:"Logged in successfully!", token:token})
+                    res.status(200).send({msg:"Logged in successfully!", token:token , user_id:user._id })
                 }
                 else{
                     res.status(404).send({msg:"Incorrct Password!"})
