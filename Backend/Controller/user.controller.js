@@ -1,6 +1,7 @@
 const { userModel } = require("../Model/user.model")
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
+const fs = require('fs')
 
 const Signup = async (req, res) => {
     const { name, email, password, age } = req.body
@@ -60,5 +61,29 @@ const SingleUser= async(req,res)=>{
     }
 }
 
+const UpdateUser= async(req,res)=>{
+    const {id} = req.params
+    let imgurl=""
+    if(req.file){
+        imgurl = `files/${req.file.filename}`
+    }
+    req.body.avatar = imgurl
 
-module.exports = { Signup, Login , SingleUser }
+    try {
+        const userinfo = userModel.findById({_id:id})
+        console.log(userinfo,"user")
+        const persentImg = userinfo.avatar
+        console.log(persentImg,img)
+        if(persentImg){
+            fs.unlinkSync(DIR+persentImg)
+        }
+
+        const updateItem = await userModel.findByIdAndUpdate({_id:id},req.body)
+        res.status(200).send({msg:`Successfully updated the ${id}!` , data:updateItem})
+    } catch (error) {
+        res.status(404).send({err:error})
+    }
+}
+
+
+module.exports = { Signup, Login , SingleUser, UpdateUser }

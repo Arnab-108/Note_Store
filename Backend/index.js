@@ -6,7 +6,7 @@ const app = express()
 
 app.use(express.json())
 app.use(cors())
-
+app.use('/files' , express.static('files'))
 app.get("/" ,(req,res)=>{
     res.send("Homepage")
 })

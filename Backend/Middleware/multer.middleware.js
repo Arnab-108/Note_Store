@@ -17,7 +17,7 @@ const uploads = multer({
         if(file.mimetype==='image/png'){
             cb(null,true)
         }
-        else if(file.mimetype==="image/jpeg"){
+        else if(file.mimetype==="image/jpeg" || file.mimetype==="image/jpg"){
             cb(null,true)
         }
         else if(file.mimetype==='application/pdf'){
