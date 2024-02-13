@@ -47,6 +47,9 @@ export const Login = () => {
         axios.post("http://localhost:8080/user/login",obj).then((res)=>{
             console.log(res)
             if(res.data.msg==="Logged in successfully!"){
+                localStorage.setItem("token",res.data.token)
+                localStorage.setItem("userId" , res.data.user_id)
+                localStorage.setItem("auth", true)
                 toast({
                     title:"Loggin in successfully",
                     status:"success",
@@ -78,7 +81,13 @@ export const Login = () => {
             }
         })
         .catch((err)=>{
-            alert(err)
+            toast({
+                title:`Something went wrong! ${err}`,
+                status:"error",
+                duration:2000,
+                isClosable:true,
+                position:"top-right"
+            })
         })
         setEmail("")
         setPassword("")

@@ -73,7 +73,7 @@ const UpdateUser= async(req,res)=>{
         const userinfo = userModel.findById({_id:id})
         console.log(userinfo,"user")
         const persentImg = userinfo.avatar
-        console.log(persentImg,img)
+        console.log(persentImg,"img")
         if(persentImg){
             fs.unlinkSync(DIR+persentImg)
         }
