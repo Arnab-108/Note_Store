@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from "axios"
 import {
     Modal,
     ModalOverlay,
@@ -24,11 +25,69 @@ import {
     Text,
     Link,
 } from "@chakra-ui/react";
+import { useToast } from '@chakra-ui/react'
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { useNavigate } from 'react-router-dom';
 
 export const Signup = () => {
+    const toast = useToast()
     const [show, setShow] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const [email,setEmail] = useState("")
+    const [password,setPassword] = useState("")
+    const [name,setName] = useState("")
+    const [age,setAge] = useState("")
+    const navigate = useNavigate()
+
+    const handleRegister = ()=>{
+        const obj={
+            email,
+            password,
+            name,
+            age
+        }
+
+        axios.post("http://localhost:8080/user/signup",obj).then((res)=>{
+            console.log(res)
+            if(res.data.msg==="User registered successfully"){
+                toast({
+                    title:"User successfully registered!",
+                    description:"Please login to access the features that we provide.",
+                    status:"success",
+                    duration:4000,
+                    isClosable:true,
+                    position: "top-right"
+                })
+            }
+            else if(res.data.msg==="User already exists. Please login!"){
+                toast({
+                    title:"User already exists!",
+                    description:"Please login first!",
+                    status:"warning",
+                    duration:4000,
+                    isClosable:true,
+                    position:"top-right"
+                })
+            }
+            setAge("")
+            setEmail("")
+            setName("")
+            setPassword("")
+            setTimeout(()=>{
+                navigate("/")
+            },1000)
+        })
+        .catch((err)=>{
+            toast({
+                title:"Something went wrong",
+                description:"Please Try Again!",
+                status:"error",
+                duration:4000,
+                isClosable:true,
+                position:"top-right"
+            })
+        })
+    }
     return (
         <>
             <Button as={'a'}
@@ -37,7 +96,6 @@ export const Signup = () => {
                 fontWeight={600}
                 color={'white'}
                 bg={"transparent"}
-                href={'#'}
                 _hover={{
                     bg: 'transparent'
                 }}
@@ -63,7 +121,7 @@ export const Signup = () => {
                             <Input
                                 type="text"
                                 fontSize="16px"
-
+                                value={name}
                                 focusBorderColor="rgb(206, 206, 223)"
                                 name="name"
                                 placeholder="Enter Your Full Name*"
@@ -71,7 +129,7 @@ export const Signup = () => {
                                 borderColor={"rgb(206, 206, 223)"}
                                 m={"8px 0px 15px 0px"}
                                 rounded="2xl"
-
+                                onChange={(e)=>setName(e.target.value)}
                             />
 
 
@@ -79,13 +137,14 @@ export const Signup = () => {
 
                                 fontSize="16px"
                                 name="email"
+                                value={email}
                                 placeholder="Email*"
                                 h={"45px"}
                                 focusBorderColor="rgb(206, 206, 223)"
                                 borderColor={"rgb(206, 206, 223)"}
                                 m={"8px 0px 18px 0px"}
                                 rounded="2xl"
-
+                                onChange={(e)=>setEmail(e.target.value)}
                             />
 
 
@@ -94,12 +153,14 @@ export const Signup = () => {
                                     fontSize="16px"
                                     type={show ? "text" : "password"}
                                     name="password"
+                                    value={password}
                                     placeholder="Password*"
                                     h={"45px"}
                                     focusBorderColor="rgb(206, 206, 223)"
                                     borderColor={"rgb(206, 206, 223)"}
                                     m={"8px 0px 8px 0px"}
                                     rounded="2xl"
+                                    onChange={(e)=>setPassword(e.target.value)}
                                 />
 
                                 <InputRightElement width="6.5rem" size="lg">
@@ -119,12 +180,13 @@ export const Signup = () => {
                                 fontSize="16px"
                                 name="number"
                                 placeholder="Age"
+                                value={age}
                                 h={"45px"}
                                 focusBorderColor="rgb(206, 206, 223)"
                                 borderColor={"rgb(206, 206, 223)"}
                                 m={"8px 0px 18px 0px"}
                                 rounded="2xl"
-
+                                onChange={(e)=>setAge(e.target.value)}
                             />
 
                             <HStack>
@@ -174,7 +236,7 @@ export const Signup = () => {
 
                             <Button
                                 //   isLoading={loading}
-                                
+                                onClick={handleRegister}
                                 bgColor={"blue.500"}
                                 width="100%"
                                 color={'white'}

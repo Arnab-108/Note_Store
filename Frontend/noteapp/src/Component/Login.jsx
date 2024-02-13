@@ -20,10 +20,16 @@ import {
     useToast,
 } from "@chakra-ui/react";
 import { Signup } from './Signup';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
+    const toast = useToast()
     const [show, setShow] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
+    const [email,setEmail] = useState("")
+    const [password,setPassword] = useState("")
+    const navigate = useNavigate()
     const handleOpen = () => {
         setIsOpen(true);
     }
@@ -31,9 +37,56 @@ export const Login = () => {
     const handleClose = () => {
         setIsOpen(false);
     }
+
+    const handleSignin=()=>{
+        const obj={
+            email,
+            password
+        }
+
+        axios.post("http://localhost:8080/user/login",obj).then((res)=>{
+            console.log(res)
+            if(res.data.msg==="Logged in successfully!"){
+                toast({
+                    title:"Loggin in successfully",
+                    status:"success",
+                    duration:2000,
+                    isClosable:true,
+                    position:"top-right"
+                })
+                setTimeout(()=>{
+                    navigate("/inside")
+                },2000)
+            }
+            else if(res.data.msg==="Incorrct Password!"){
+                toast({
+                    title:"Incorrect Password!",
+                    status:"error",
+                    duration:2000,
+                    isClosable:true,
+                    position:"top-right"
+                })
+            }
+            else if(res.data.err==="User dosen't exists. Please Signup!"){
+                toast({
+                    title:"User dosen't exists. Please Signup!",
+                    status:"error",
+                    duration:2000,
+                    isClosable:true,
+                    position:"top-right"
+                })
+            }
+        })
+        .catch((err)=>{
+            alert(err)
+        })
+        setEmail("")
+        setPassword("")
+    }
+
     return (
         <>
-            <Center onClick={handleOpen} color={"#2c3338"} as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'}>
+            <Center onClick={handleOpen} color={"#2c3338"} as={'a'} fontSize={'sm'} fontWeight={400}>
                 Sign In
             </Center>
 
@@ -70,23 +123,27 @@ export const Login = () => {
                             <Input
                                 name="email"
                                 placeholder="Email"
+                                value={email}
                                 h={"50px"}
                                 fontSize="16px"
                                 focusBorderColor="rgb(206, 206, 223)"
                                 borderColor={"rgb(206, 206, 223)"}
                                 rounded="2xl"
                                 mb={"5px"}
+                                onChange={(e)=>setEmail(e.target.value)}
                             />
                             <InputGroup>
                                 <Input
                                     type={show ? "text" : "password"}
                                     name="password"
                                     placeholder="Enter password"
+                                    value={password}
                                     h={"50px"}
                                     fontSize="16px"
                                     focusBorderColor="rgb(206, 206, 223)"
                                     borderColor={"rgb(206, 206, 223)"}
                                     rounded="2xl"
+                                    onChange={(e)=>setPassword(e.target.value)}
                                 />
 
                                 <InputRightElement width="6.5rem" size="lg">
@@ -121,7 +178,7 @@ export const Login = () => {
                             </HStack>
                             <Button
                                 //isLoading={loading}
-                                // onClick={handleSignin}
+                                onClick={handleSignin}
                                 bgColor={"blue.500"}
                                 width="100%"
                                 color={"white"}

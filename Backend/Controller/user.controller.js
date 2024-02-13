@@ -38,12 +38,12 @@ const Login = async (req, res) => {
                     res.status(200).send({msg:"Logged in successfully!", token:token , user_id:user._id })
                 }
                 else{
-                    res.status(404).send({msg:"Incorrct Password!"})
+                    res.status(200).send({msg:"Incorrct Password!"})
                 }
             })
         }
         else{
-            res.status(404).send({err:"User dosen't exists. Please Signup!"})
+            res.status(200).send({err:"User dosen't exists. Please Signup!"})
         }
     } catch (error) {
         res.status(404).send({err:error})
