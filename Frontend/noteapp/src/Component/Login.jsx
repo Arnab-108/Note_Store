@@ -49,6 +49,7 @@ export const Login = () => {
             if(res.data.msg==="Logged in successfully!"){
                 localStorage.setItem("token",res.data.token)
                 localStorage.setItem("userId" , res.data.user_id)
+                localStorage.setItem("avatar" , res.data.avatar)
                 localStorage.setItem("auth", true)
                 toast({
                     title:"Loggin in successfully",

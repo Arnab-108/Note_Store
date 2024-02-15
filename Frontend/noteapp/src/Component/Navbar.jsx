@@ -99,7 +99,7 @@ export const Navbar = () => {
                     <Center height={"50px"}>
                         <Divider color={"black"} orientation='vertical' />
                     </Center>
-                    <Button color={"#2c3338"} as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href={'#'}>
+                    <Button color={"#2c3338"} as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} cursor={"pointer"}>
                         <Login />
                     </Button>
                     <Button 

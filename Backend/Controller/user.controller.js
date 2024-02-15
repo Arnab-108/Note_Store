@@ -35,7 +35,7 @@ const Login = async (req, res) => {
                         expiresIn: "2d"
                     })
 
-                    res.status(200).send({msg:"Logged in successfully!", token:token , user_id:user._id })
+                    res.status(200).send({msg:"Logged in successfully!", token:token , user_id:user._id , avatar: user.avatar })
                 }
                 else{
                     res.status(200).send({msg:"Incorrct Password!"})
