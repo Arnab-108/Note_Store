@@ -103,7 +103,7 @@ export const NavInside = () => {
           </Center>
           <Popover>
             <PopoverTrigger>
-              <Avatar size='md' src={url} />
+              <Avatar size='md' src={url} cursor={"pointer"} />
             </PopoverTrigger>
             <PopoverContent
               w="120px"
@@ -130,6 +130,7 @@ export const NavInside = () => {
                   color="#333368"
                   pt={"1vh"}
                   _hover={{ fontWeight: "bold" }}
+                  cursor={"pointer"}
                   onClick={() => {
                     localStorage.removeItem("auth");
                     localStorage.removeItem("userData");

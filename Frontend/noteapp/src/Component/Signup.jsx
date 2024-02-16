@@ -35,6 +35,7 @@ export const Signup = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
+    const [phone,setPhone] = useState("")
     const [name,setName] = useState("")
     const [age,setAge] = useState("")
     const navigate = useNavigate()
@@ -44,6 +45,7 @@ export const Signup = () => {
             email,
             password,
             name,
+            phone,
             age
         }
 
@@ -73,6 +75,7 @@ export const Signup = () => {
             setEmail("")
             setName("")
             setPassword("")
+            setPhone("")
             setTimeout(()=>{
                 navigate("/")
             },1000)
@@ -175,6 +178,19 @@ export const Signup = () => {
                                     </Button>
                                 </InputRightElement>
                             </InputGroup>
+                            <Input
+
+                                fontSize="16px"
+                                name="number"
+                                placeholder="Phone"
+                                value={phone}
+                                h={"45px"}
+                                focusBorderColor="rgb(206, 206, 223)"
+                                borderColor={"rgb(206, 206, 223)"}
+                                m={"8px 0px 18px 0px"}
+                                rounded="2xl"
+                                onChange={(e)=>setPhone(e.target.value)}
+                            />
                             <Input
 
                                 fontSize="16px"

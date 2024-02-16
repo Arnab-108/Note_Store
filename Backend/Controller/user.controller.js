@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt")
 const fs = require('fs')
 
 const Signup = async (req, res) => {
-    const { name, email, password, age } = req.body
+    const { name, email, password,phone, age } = req.body
 
     const user = await userModel.findOne({ email: email })
     if (user) {
@@ -13,7 +13,7 @@ const Signup = async (req, res) => {
     else {
         try {
             bcrypt.hash(password, 5, async (err, hash) => {
-                const data = userModel({ name, email, password: hash, age, avatar: "https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg" })
+                const data = userModel({ name, email, password: hash, age, phone, avatar: "https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg" })
                 await data.save()
                 res.status(200).send({ msg: "User registered successfully", user: data })
             })
