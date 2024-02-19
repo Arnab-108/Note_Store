@@ -17,6 +17,9 @@ import {
     HStack,
     Center,
     Divider,
+    Avatar,
+    PopoverBody,
+    useToast,
 } from '@chakra-ui/react'
 import {
     HamburgerIcon,
@@ -24,13 +27,11 @@ import {
     ChevronDownIcon,
     ChevronRightIcon,
 } from '@chakra-ui/icons'
-import { Signup } from './Signup'
-import { Login } from './Login'
-
-export const Navbar = () => {
+import { Link } from 'react-router-dom'
+export const UserNav = () => {
     const { isOpen, onToggle } = useDisclosure()
     return (
-        <Box>
+        <Box margin={"auto"} width={"93vw"} >
             <Flex
                 bg={useColorModeValue('white', 'gray.800')}
                 color={useColorModeValue('gray.600', 'white')}
@@ -52,63 +53,48 @@ export const Navbar = () => {
                         aria-label={'Toggle Navigation'}
                     />
                 </Flex>
-                <Flex pos={"relative"} left={"4vw"} flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-                    <Text
-                        textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-                        fontFamily={'heading'}
-                        color={useColorModeValue('gray.800', 'white')}>
-                        Logo
-                    </Text>
-
-                    <HStack>
-
-                    </HStack>
+                <Flex pos={"relative"} left={"7vw"} flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+                    <Link to={"/inside"}>
+                        <Text
+                            textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
+                            fontFamily={'heading'}
+                            color={useColorModeValue('gray.800', 'white')}>
+                            Logo
+                        </Text>
+                    </Link>
                 </Flex>
 
                 <Stack
                     flex={{ base: 1, md: 0 }}
                     pos={"relative"}
-                    right={"7vw"}
+                    right={"8vw"}
                     align={"center"}
                     justify={'flex-end'}
                     direction={'row'}
-                    spacing={8}>
-                    <HStack
-                        spacing='24px'
-                        // pos={"relative"}
-                        // right={"1vw"}
+                    spacing={6}>
+                    {/* <HStack
+                        spacing='10px'
+                    // pos={"relative"}
+                    // right={"1vw"}
 
                     >
-                        <Box w='4vw' cursor={"pointer"} color={"#2c3338"} _hover={{color:"#8c8f94"}}>
+                        <Box w='4vw' cursor={"pointer"} color={"#2c3338"} _hover={{ color: "#8c8f94" }}>
                             <Text align={"center"} fontSize={"14px"}>
-                                Contacts
+                                View
                             </Text>
                         </Box>
-                        <Box w='4vw' cursor={"pointer"} color={"#2c3338"} _hover={{color:"#8c8f94"}}>
+                        <Box w='4vw' cursor={"pointer"} color={"#2c3338"} _hover={{ color: "#8c8f94" }}>
                             <Text align={"center"} fontSize={"14px"}>
-                                Help
+                                Upload
                             </Text>
                         </Box>
-                        <Box w='4vw' cursor={"pointer"} color={"#2c3338"} _hover={{color:"#8c8f94"}}>
-                            <Text align={"center"} fontSize={"14px"}>
-                                Blog
-                            </Text>
-                        </Box>
-                    </HStack>
+                    </HStack> */}
 
-                    <Center height={"50px"}>
+                    {/* <Center height={"50px"}>
                         <Divider color={"black"} orientation='vertical' />
-                    </Center>
+                    </Center> */}
                     <Button color={"#2c3338"} as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} cursor={"pointer"}>
-                        <Login />
-                    </Button>
-                    <Button 
-                    bg={'blue.500'}
-                    _hover={{
-                            bg:'teal.400'
-                        }}
-                    >
-                        <Signup />
+                        Edit
                     </Button>
                 </Stack>
             </Flex>
