@@ -28,6 +28,7 @@ import {
     ChevronRightIcon,
 } from '@chakra-ui/icons'
 import { Link } from 'react-router-dom'
+import { EditModal } from './EditModal'
 export const UserNav = () => {
     const { isOpen, onToggle } = useDisclosure()
     return (
@@ -93,8 +94,8 @@ export const UserNav = () => {
                     {/* <Center height={"50px"}>
                         <Divider color={"black"} orientation='vertical' />
                     </Center> */}
-                    <Button color={"#2c3338"} as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} cursor={"pointer"}>
-                        Edit
+                    <Button color={"#2c3338"} w={"7vw"} fontSize={'sm'} fontWeight={400} variant={'outline'} cursor={"pointer"}>
+                        <EditModal />
                     </Button>
                 </Stack>
             </Flex>
