@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from "axios"
+import { useDispatch, useSelector } from 'react-redux';
 import {
     Modal,
     ModalOverlay,
@@ -28,10 +29,16 @@ import {
 import { useToast } from '@chakra-ui/react'
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useNavigate } from 'react-router-dom';
+import { editUser } from '../Redux/UserRedux/action';
 
 export const EditModal = () => {
+    const id = localStorage.getItem("userId")
+    const [data,setData] = useState("")
+    const navigate = useNavigate()
     const [show, setShow] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
+    const dispatch = useDispatch()
+    const user = useSelector((store)=>store.userReducer.user)
     const handleOpen = () => {
         setIsOpen(true);
     }
@@ -39,6 +46,47 @@ export const EditModal = () => {
     const handleClose = () => {
         setIsOpen(false);
     }
+
+    const handleChange=(e)=>{
+        const {name,value} = e.target
+        if(name==="avatar"){
+            console.log("avatar took")
+            const file = e.target.files[0]
+            console.log(file)
+            setData((prev)=>{
+                return {...prev , [name]:file}
+            })
+        }
+        else{
+            setData((prev)=>{
+                return {...prev , [name]:value}
+            })
+        }
+    }
+
+    const handleSubmit=()=>{
+        console.log("hello!")
+        console.log(data)
+        dispatch(editUser(data,id)).then(()=>{
+            alert("User Edited!")
+            navigate("/userProfile")
+        })
+        
+        setData("")
+    }
+    useEffect(()=>{
+        const data={
+            name:user[0]?.name,
+            email:user[0]?.email,
+            password:user[0]?.password,
+            phone:user[0]?.phone,
+            age:user[0]?.age,
+            avatar:user[0]?.avatar
+        }
+        setData(data)
+    },[])
+    console.log(user,"user")
+    console.log(data,"data")
     return (
         <>
             <Center onClick={handleOpen} color={"#2c3338"} as={'a'} fontSize={'sm'} fontWeight={400}>
@@ -84,14 +132,14 @@ export const EditModal = () => {
                                     <Input
                                         name="name"
                                         placeholder="Name"
-                                        //value={email}
+                                        value={data.name}
                                         h={"50px"}
                                         fontSize="16px"
                                         focusBorderColor="rgb(206, 206, 223)"
                                         borderColor={"rgb(206, 206, 223)"}
                                         rounded="2xl"
                                         mb={"5px"}
-                                    //onChange={(e) => setEmail(e.target.value)}
+                                        onChange={handleChange}
                                     />
                                 </InputGroup>
 
@@ -102,14 +150,14 @@ export const EditModal = () => {
                                     <Input
                                         name="email"
                                         placeholder="Email"
-                                        //value={email}
-                                        h={"50px"}
+                                        value={data.email}
+                                        height={"50px"}
                                         fontSize="16px"
                                         focusBorderColor="rgb(206, 206, 223)"
                                         borderColor={"rgb(206, 206, 223)"}
                                         rounded="2xl"
                                         mb={"5px"}
-                                    //onChange={(e) => setEmail(e.target.value)}
+                                        onChange={handleChange}
                                     />
                                 </InputGroup>
 
@@ -120,15 +168,15 @@ export const EditModal = () => {
                                     <Input
                                         name="phone"
                                         placeholder="Phone"
-                                        type='tel'
-                                        //value={email}
+                                        type='number'
+                                        value={data.phone}
                                         h={"50px"}
                                         fontSize="16px"
                                         focusBorderColor="rgb(206, 206, 223)"
                                         borderColor={"rgb(206, 206, 223)"}
                                         rounded="2xl"
                                         mb={"5px"}
-                                    //onChange={(e) => setEmail(e.target.value)}
+                                        onChange={handleChange}
                                     />
                                 </InputGroup>
                                 <InputGroup mt={"2vh"} mb={"2vh"}>
@@ -138,14 +186,14 @@ export const EditModal = () => {
                                     <Input
                                         name="age"
                                         placeholder="Age"
-                                        //value={email}
+                                        value={data.age}
                                         h={"50px"}
                                         fontSize="16px"
                                         focusBorderColor="rgb(206, 206, 223)"
                                         borderColor={"rgb(206, 206, 223)"}
                                         rounded="2xl"
                                         mb={"5px"}
-                                    //onChange={(e) => setEmail(e.target.value)}
+                                        onChange={handleChange}
                                     />
                                 </InputGroup>
                                 <InputGroup mt={"2vh"} mb={"2vh"}>
@@ -155,8 +203,8 @@ export const EditModal = () => {
                                     <Input
                                         name="avatar"
                                         type='file'
+                                        accept=".jpg, .jpeg, .png"
                                         placeholder='Upload Image'
-                                        //value={email}
                                         height={"3vh"}
                                         h={"50px"}
                                         fontSize="16px"
@@ -165,13 +213,13 @@ export const EditModal = () => {
                                         rounded="2xl"
                                         mb={"5px"}
                                         paddingTop={"10px"}
-                                    //onChange={(e) => setEmail(e.target.value)}
+                                        onChange={handleChange}
                                     />
                                 </InputGroup>
                             </Box>
                             <Button
                                 //isLoading={loading}
-                                //onClick={handleSignin}
+                                onClick={handleSubmit}
                                 bgColor={"blue.500"}
                                 width="100%"
                                 color={"white"}

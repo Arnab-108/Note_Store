@@ -17,12 +17,14 @@ export const getUser =(id)=>(dispatch)=>{
 
 export const editUser= (obj,id)=>(dispatch)=>{
     dispatch({type:USER_LOADING})
-    axios.patch(`http://localhost:8080/user/${id}`,obj,{
+    return axios.patch(`http://localhost:8080/user/${id}`,obj,{
         headers:{
             Authorization: `Barer ${token}`
         }
     }).then((res)=>{
+        console.log(res)
         dispatch({type:PATCH_USER_SUCCESS})
+        getUser()
     }).catch(()=>{
         dispatch({type:USER_FAILURE})
     })
