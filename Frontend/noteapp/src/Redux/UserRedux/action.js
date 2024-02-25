@@ -1,9 +1,10 @@
 import axios from "axios"
 import { GET_USER_SUCCESS, PATCH_USER_SUCCESS, USER_FAILURE, USER_LOADING } from "./actionType"
+import { defineStyle } from "@chakra-ui/react"
 const token = localStorage.getItem("token")
-export const getUser =(id)=>(dispatch)=>{
+export const getUser=(dispatch)=>{
     dispatch({type:USER_LOADING})
-    axios.get(`http://localhost:8080/user/${id}`,{
+    axios.get(`http://localhost:8080/user`,{
         headers:{
             Authorization: `Barer ${token}`
         }
@@ -24,7 +25,7 @@ export const editUser= (obj,id)=>(dispatch)=>{
     }).then((res)=>{
         console.log(res)
         dispatch({type:PATCH_USER_SUCCESS})
-        getUser()
+        dispatch(getUser)
     }).catch(()=>{
         dispatch({type:USER_FAILURE})
     })

@@ -29,10 +29,9 @@ import {
 } from '@chakra-ui/icons'
 import { Link, useNavigate } from 'react-router-dom'
 
-export const NavInside = () => {
-  const img = localStorage.getItem('avatar')
-  const url = `http://localhost:8080/${img}`
-  console.log(url)
+export const NavInside = ({img}) => {
+
+  console.log(img)
   const navigate = useNavigate()
   const toast = useToast()
   const { isOpen, onToggle } = useDisclosure()
@@ -103,7 +102,7 @@ export const NavInside = () => {
           </Center>
           <Popover>
             <PopoverTrigger>
-              <Avatar size='md' src={url} cursor={"pointer"} />
+              <Avatar size='md' src={img} cursor={"pointer"} />
             </PopoverTrigger>
             <PopoverContent
               w="120px"

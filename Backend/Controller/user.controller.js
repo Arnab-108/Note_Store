@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt")
 const fs = require('fs')
 
 const Signup = async (req, res) => {
-    const { name, email, password,phone, age } = req.body
+    const { name, email, password, phone, age } = req.body
 
     const user = await userModel.findOne({ email: email })
     if (user) {
@@ -27,63 +27,74 @@ const Login = async (req, res) => {
     const { email, password } = req.body
     try {
         const user = await userModel.findOne({ email: email })
-        
+
         if (user) {
             bcrypt.compare(password, user.password, (err, result) => {
-                if(result) {
+                if (result) {
                     const token = jwt.sign({ user_id: user._id, user_name: user.name, avatar: user.avatar }, "indi", {
                         expiresIn: "2d"
                     })
 
-                    res.status(200).send({msg:"Logged in successfully!", token:token , user_id:user._id , avatar: user.avatar })
+                    res.status(200).send({ msg: "Logged in successfully!", token: token, user_id: user._id, avatar: user.avatar })
                 }
-                else{
-                    res.status(200).send({msg:"Incorrct Password!"})
+                else {
+                    res.status(200).send({ msg: "Incorrct Password!" })
                 }
             })
         }
-        else{
-            res.status(200).send({err:"User dosen't exists. Please Signup!"})
+        else {
+            res.status(200).send({ err: "User dosen't exists. Please Signup!" })
         }
     } catch (error) {
-        res.status(404).send({err:error})
+        res.status(404).send({ err: error })
     }
 
 }
 
-const SingleUser= async(req,res)=>{
-    const {id} = req.params
+const allUser = async (req, res) => {
     try {
-         const data = await userModel.find({_id:id})
-         res.status(200).send(data)
+        const data = await userModel.find()
+        res.status(200).send(data)
     } catch (error) {
-        res.status(404).send({err:error})
+        res.status(404).send({ err: error })
     }
 }
 
-const UpdateUser= async(req,res)=>{
-    const {id} = req.params
-    let imgurl=""
-    if(req.file){
-        imgurl = `files/${req.file.filename}`
-    }
-    req.body.avatar = imgurl
 
+const SingleUser = async (req, res) => {
+    const { id } = req.params
     try {
-        const userinfo = userModel.findById({_id:id})
-        console.log(userinfo,"user")
+        const data = await userModel.find({ _id: id })
+        res.status(200).send(data)
+    } catch (error) {
+        res.status(404).send({ err: error })
+    }
+}
+
+const UpdateUser = async (req, res) => {
+    const { id } = req.params
+    try {
+        let imgurl = ""
+        if (req.file) {
+            imgurl = `files/${req.file.filename}`
+        }
+        req.body.avatar = imgurl
+
+
+        const userinfo = userModel.findById({ _id: id })
+        console.log(userinfo, "user")
         const persentImg = userinfo.avatar
-        console.log(persentImg,"img")
-        if(persentImg){
-            fs.unlinkSync(DIR+persentImg)
+        console.log(persentImg, "img")
+        if (persentImg) {
+            fs.unlinkSync(DIR + persentImg)
         }
 
-        const updateItem = await userModel.findByIdAndUpdate({_id:id},req.body)
-        res.status(200).send({msg:`Successfully updated the ${id}!` , data:updateItem})
+        const updateItem = await userModel.findByIdAndUpdate({ _id: id }, req.body)
+        res.status(200).send({ msg: `Successfully updated the ${id}!`, data: updateItem })
     } catch (error) {
-        res.status(404).send({err:error})
+        res.status(404).send({ err: error })
     }
 }
 
 
-module.exports = { Signup, Login , SingleUser, UpdateUser }
+module.exports = { Signup, Login, SingleUser, UpdateUser, allUser }

@@ -6,20 +6,28 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getUser } from '../Redux/UserRedux/action'
 export const UserProfile = () => {
   const id = localStorage.getItem("userId")
+  const [data,setData] = useState("")
   const dispatch = useDispatch()
   const {user} = useSelector((store)=>{
-    console.log(store)
+    console.log(store,"userStore")
     return {
       user: store.userReducer.user
     }
   })
   console.log(id)
   useEffect(()=>{
-    dispatch(getUser(id))
-  },[])
+    const data = user?.find((el)=> el._id === id)
+    setData(data)
+    console.log(data,"datauseeffect")
+  },[user,id])
+  useEffect(()=>{
+    dispatch(getUser)
+    
+  },[dispatch])
   // console.log(user[0].avatar)
-  const img = `http://localhost:8080/${user[0]?.avatar}`
-  console.log(user[0]?.avatar)
+  console.log(data,'data1')
+  const img = `http://localhost:8080/${data?.avatar}`
+  console.log(data?.avatar)
   return (
     <>
       <UserNav />
@@ -31,20 +39,20 @@ export const UserProfile = () => {
               borderRadius='full'
               boxSize='210px'
               src={img}
-              alt={user[0]?.name}
+              alt={data?.name}
               justifyContent={"center"}
             />
           </Box>
-          <Text fontSize={"5xl"} fontWeight={"medium"} color={"#053c46"} pos={"relative"} bottom={"14vh"} >{user[0]?.name}</Text>
-          <Text fontSize={"xl"} fontWeight={"medium"} color={"#6b6d6d"} pos={"relative"} bottom={"15vh"}>@{user[0]?.email}</Text>
+          <Text fontSize={"5xl"} fontWeight={"medium"} color={"#053c46"} pos={"relative"} bottom={"14vh"} >{data?.name}</Text>
+          <Text fontSize={"xl"} fontWeight={"medium"} color={"#6b6d6d"} pos={"relative"} bottom={"15vh"}>@{data?.email}</Text>
           <HStack gap={"30vw"} pos={"relative"} bottom={"7vh"}>
             <VStack gap={"10px"}>
               <Text fontSize={"md"} color={"#6b6d6d"}>Phone</Text>
-              <Text pos={"relative"} bottom={"1vh"} fontSize={"lg"} fontWeight={"medium"} color={"#053c46"}>{user[0]?.phone ? user[0].phone:"N/A"}</Text>
+              <Text pos={"relative"} bottom={"1vh"} fontSize={"lg"} fontWeight={"medium"} color={"#053c46"}>{data?.phone ? data?.phone:"N/A"}</Text>
             </VStack>
             <VStack gap={"10px"}>
               <Text fontSize={"md"} color={"#6b6d6d"}>Age</Text>
-              <Text pos={"relative"} bottom={"1vh"} fontSize={"lg"} fontWeight={"medium"} color={"#053c46"}>{user[0]?.age ? user[0].age:"N/A"}</Text>
+              <Text pos={"relative"} bottom={"1vh"} fontSize={"lg"} fontWeight={"medium"} color={"#053c46"}>{data?.age ? data?.age:"N/A"}</Text>
             </VStack>
           </HStack>
         </VStack>

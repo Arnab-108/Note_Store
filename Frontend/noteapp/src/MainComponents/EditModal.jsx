@@ -33,12 +33,12 @@ import { editUser } from '../Redux/UserRedux/action';
 
 export const EditModal = () => {
     const id = localStorage.getItem("userId")
-    const [data,setData] = useState("")
+    const [data, setData] = useState("")
     const navigate = useNavigate()
     const [show, setShow] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
     const dispatch = useDispatch()
-    const user = useSelector((store)=>store.userReducer.user)
+    const user = useSelector((store) => store.userReducer.user)
     const handleOpen = () => {
         setIsOpen(true);
     }
@@ -47,46 +47,36 @@ export const EditModal = () => {
         setIsOpen(false);
     }
 
-    const handleChange=(e)=>{
-        const {name,value} = e.target
-        if(name==="avatar"){
-            console.log("avatar took")
-            const file = e.target.files[0]
-            console.log(file)
-            setData((prev)=>{
-                return {...prev , [name]:file}
-            })
-        }
-        else{
-            setData((prev)=>{
-                return {...prev , [name]:value}
-            })
-        }
+    const handleChange = (e) => {
+        const { name, value, files } = e.target;
+        const file = files ? files[0] : null; // Get file if exists
+        setData((prev) => ({ ...prev, [name]: file || value })); // Update data state
     }
 
-    const handleSubmit=()=>{
-        console.log("hello!")
-        console.log(data)
-        dispatch(editUser(data,id)).then(()=>{
-            alert("User Edited!")
+    const handleSubmit = () => {
+        const formData = new FormData();
+        // Append each key-value pair to formData
+        Object.entries(data).forEach(([key, value]) => {
+            formData.append(key, value);
+        });
+        console.log(formData,"form")
+        // Dispatch editUser action with formData
+        dispatch(editUser(formData, id)).then(() => {
+            alert("User Edited!");
+            setIsOpen(false)
             navigate("/userProfile")
-        })
-        
-        setData("")
+            // Handle navigation or other actions upon successful edit
+        });
+
+
+        //setData("")
     }
-    useEffect(()=>{
-        const data={
-            name:user[0]?.name,
-            email:user[0]?.email,
-            password:user[0]?.password,
-            phone:user[0]?.phone,
-            age:user[0]?.age,
-            avatar:user[0]?.avatar
-        }
+    useEffect(() => {
+        const data = user?.find((el) => el._id === id)
         setData(data)
-    },[])
-    console.log(user,"user")
-    console.log(data,"data")
+    }, [user, id])
+    console.log(user, "user")
+    console.log(data, "data")
     return (
         <>
             <Center onClick={handleOpen} color={"#2c3338"} as={'a'} fontSize={'sm'} fontWeight={400}>
@@ -132,7 +122,7 @@ export const EditModal = () => {
                                     <Input
                                         name="name"
                                         placeholder="Name"
-                                        value={data.name}
+                                        value={data?.name}
                                         h={"50px"}
                                         fontSize="16px"
                                         focusBorderColor="rgb(206, 206, 223)"
@@ -150,7 +140,7 @@ export const EditModal = () => {
                                     <Input
                                         name="email"
                                         placeholder="Email"
-                                        value={data.email}
+                                        value={data?.email}
                                         height={"50px"}
                                         fontSize="16px"
                                         focusBorderColor="rgb(206, 206, 223)"
@@ -169,7 +159,7 @@ export const EditModal = () => {
                                         name="phone"
                                         placeholder="Phone"
                                         type='number'
-                                        value={data.phone}
+                                        value={data?.phone}
                                         h={"50px"}
                                         fontSize="16px"
                                         focusBorderColor="rgb(206, 206, 223)"
@@ -186,7 +176,7 @@ export const EditModal = () => {
                                     <Input
                                         name="age"
                                         placeholder="Age"
-                                        value={data.age}
+                                        value={data?.age}
                                         h={"50px"}
                                         fontSize="16px"
                                         focusBorderColor="rgb(206, 206, 223)"

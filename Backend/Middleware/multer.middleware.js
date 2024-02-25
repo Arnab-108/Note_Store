@@ -36,11 +36,7 @@ const uploads = multer({
             cd(new Error('Files not supported!'))
             cb(null,false)
         }
-    },
-    limits:{
-        fileSize: 1024*1024*2
     }
-
 })
 
 
