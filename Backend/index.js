@@ -2,6 +2,7 @@ const express = require("express")
 const cors = require("cors")
 const {connection} = require("./db")
 const { authRoute } = require("./Route/user.route")
+const { noteRouter } = require("./Route/pdf.router")
 const app = express()
 
 app.use(express.json())
@@ -12,6 +13,7 @@ app.get("/" ,(req,res)=>{
 })
 
 app.use("/user",authRoute)
+app.use("/pdf",noteRouter)
 
 app.listen(8080, async()=>{
     try {

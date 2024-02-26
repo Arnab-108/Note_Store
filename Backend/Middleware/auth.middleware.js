@@ -8,8 +8,8 @@ const auth = (req,res,next)=>{
             const decoded = jwt.verify(token,"indi")
             if(decoded){
                 console.log(decoded)
-                req.body.userId = decoded.user_id
-                req.body.username = decoded.user_name
+                req.user_Id = decoded.user_id
+                req.user_name = decoded.user_name
                 next()
             }
             else{
