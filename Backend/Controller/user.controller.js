@@ -88,25 +88,24 @@ const UpdateUser = async (req, res) => {
         // if (persentImg) {
         //     fs.unlinkSync(DIR + persentImg)
         // }
-        try {
-            const userinfo = userModel.findById({_id:id})
+        const userinfo = await userModel.findById({_id:id})
+        if (userinfo) {
+            const presentImg = userinfo.avatar;
+            console.log(presentImg, "path");
+            console.log(userinfo.name);
 
-            if(!userinfo){
-                return res.status(404).send({msg:"User Not found"})
+            if (presentImg) {
+                try {
+                    fs.unlinkSync(presentImg);
+                    console.log('File deleted successfully');
+                } catch (unlinkError) {
+                    console.error('Error deleting file:', unlinkError);
+                }
+            } else {
+                console.log('No file to delete');
             }
-
-            const presentImg = userinfo.avatar
-            console.log(userinfo)
-            console.log(presentImg,"path")
-            if(presentImg){
-                fs.unlinkSync(presentImg);
-            }
-            else{
-                console.log("No avatar found for the user");
-            }
-        } catch (error) {
-            console.error("Error deleting avatar:", error);
-            return res.status(500).send({ err: "Internal Server Error" });
+        } else {
+            console.log('User not found');
         }
 
         const updateItem = await userModel.findByIdAndUpdate({ _id: id }, req.body)
