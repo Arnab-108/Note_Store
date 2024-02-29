@@ -81,13 +81,7 @@ const UpdateUser = async (req, res) => {
         req.body.avatar = imgurl
 
 
-        // const userinfo = userModel.findById({ _id: id })
-        // console.log(userinfo, "user")
-        // const persentImg = userinfo.avatar
-        // console.log(persentImg, "img")
-        // if (persentImg) {
-        //     fs.unlinkSync(DIR + persentImg)
-        // }
+    
         const userinfo = await userModel.findById({_id:id})
         if (userinfo) {
             const presentImg = userinfo.avatar;
