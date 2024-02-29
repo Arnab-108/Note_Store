@@ -1,4 +1,5 @@
 const { pdfModel } = require("../Model/pdf.model")
+const fs = require("fs")
 
 const Upload = async (req, res) => {
     try {
@@ -35,12 +36,24 @@ const UPDATE = async(req,res)=>{
         }
         req.body.file = file
 
-        const userinfo = pdfModel.find({_id:id})
-        console.log(userinfo, "user")
-        const persentImg = userinfo.file
-        console.log(persentImg, "img")
-        if (persentImg) {
-            fs.unlinkSync(DIR + persentImg)
+        const userinfo = await pdfModel.find({_id:id})
+        if (userinfo) {
+            const presentImg = userinfo[0].file;
+            console.log(presentImg, "path");
+            console.log(userinfo[0].name);
+
+            if (presentImg) {
+                try {
+                    fs.unlinkSync(presentImg);
+                    console.log('File deleted successfully');
+                } catch (unlinkError) {
+                    console.error('Error deleting file:', unlinkError);
+                }
+            } else {
+                console.log('No file to delete');
+            }
+        } else {
+            console.log('User not found');
         }
 
         const updateItem = await pdfModel.findByIdAndUpdate({ _id: id }, req.body)
@@ -50,4 +63,35 @@ const UPDATE = async(req,res)=>{
     }
 }
 
-module.exports = { Upload,GET,UPDATE }
+const DELETE = async(req,res)=>{
+    const {id} = req.params
+    try {
+        const documentDelete = await pdfModel.findById({_id:id})
+        console.log(documentDelete,"file")
+        
+        if(documentDelete){
+            const document = documentDelete.file
+            console.log(document,"path")
+            if(document){
+                try {
+                    fs.unlinkSync(document)
+                    console.log("File is successfully deleted")
+                } catch (error) {
+                    console.error("Error deleting the file" , unlinkError)
+                }
+            }
+            else{
+                console.log('No file to delete');
+            }
+        }
+        else{
+            console.log("No document found")
+        }
+
+        await pdfModel.findByIdAndDelete(id);
+        res.status(200).send({msg:`${id} deleted successfully!`})
+    } catch (error) {
+        res.status(404).send({err:error.message})
+    }
+}
+module.exports = { Upload,GET,UPDATE,DELETE }

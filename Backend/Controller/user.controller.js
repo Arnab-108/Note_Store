@@ -81,12 +81,32 @@ const UpdateUser = async (req, res) => {
         req.body.avatar = imgurl
 
 
-        const userinfo = userModel.findById({ _id: id })
-        console.log(userinfo, "user")
-        const persentImg = userinfo.avatar
-        console.log(persentImg, "img")
-        if (persentImg) {
-            fs.unlinkSync(DIR + persentImg)
+        // const userinfo = userModel.findById({ _id: id })
+        // console.log(userinfo, "user")
+        // const persentImg = userinfo.avatar
+        // console.log(persentImg, "img")
+        // if (persentImg) {
+        //     fs.unlinkSync(DIR + persentImg)
+        // }
+        try {
+            const userinfo = userModel.findById({_id:id})
+
+            if(!userinfo){
+                return res.status(404).send({msg:"User Not found"})
+            }
+
+            const presentImg = userinfo.avatar
+            console.log(userinfo)
+            console.log(presentImg,"path")
+            if(presentImg){
+                fs.unlinkSync(presentImg);
+            }
+            else{
+                console.log("No avatar found for the user");
+            }
+        } catch (error) {
+            console.error("Error deleting avatar:", error);
+            return res.status(500).send({ err: "Internal Server Error" });
         }
 
         const updateItem = await userModel.findByIdAndUpdate({ _id: id }, req.body)
