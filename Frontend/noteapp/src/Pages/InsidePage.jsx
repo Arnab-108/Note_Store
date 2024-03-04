@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { NavInside } from '../MainComponents/NavInside'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUser } from '../Redux/UserRedux/action'
+import { View } from './View'
+import { Box } from '@chakra-ui/react'
 
 export const InsidePage = () => {
   const [data,setData] = useState({})
@@ -32,6 +34,9 @@ export const InsidePage = () => {
   return (
     <>
         <NavInside img={img} />
+        <Box>
+          <View />
+        </Box>
     </>
   )
 }
