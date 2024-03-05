@@ -8,6 +8,8 @@ import { InsidePage } from '../Pages/InsidePage'
 import { PrivateRoute } from './PrivateRoute'
 import { Heading } from '@chakra-ui/react'
 import { UserProfile } from '../Pages/UserProfile'
+import { View } from '../Pages/View'
+import { Upload } from '../Pages/Upload'
 
 export const MainRoutes = () => {
   return (
@@ -26,6 +28,16 @@ export const MainRoutes = () => {
           <UserProfile />
         </PrivateRoute>
         } />
+        <Route path='/view' element={
+          <PrivateRoute>
+            <View />
+          </PrivateRoute>
+        }/>
+        <Route path='/upload' element={
+          <PrivateRoute>
+            <Upload  />
+          </PrivateRoute>
+        }/>
         <Route path='*' element={<h1>404 Page not found</h1>} />
        </Routes>
     </>
