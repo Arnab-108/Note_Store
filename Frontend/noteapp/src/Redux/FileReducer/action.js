@@ -21,7 +21,8 @@ export const postFile =(obj)=>(dispatch)=>{
     dispatch({type:FILE_LOADING})
     return axios.post("http://localhost:8080/pdf/upload",obj,{
         headers:{
-            Authorization: `Baerer ${token}`
+            Authorization: `Baerer ${token}`,
+            'Content-Type':'multipart/form-data'
         }
     }).then((res)=>{
         console.log(res)

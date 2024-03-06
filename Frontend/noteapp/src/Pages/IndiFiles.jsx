@@ -65,7 +65,7 @@ export const IndiFiles = ({ file, name, description, user_name,_id,createdAt  })
           />
         <Box p="6">
           <Box pos={"relative"} right={"8vw"} >
-            <Badge ml={"12vw"} p={"6px"} textAlign={"center"} rounded="full" px="2" h={"4vh"}fontSize="12px" fontWeight={"700"} bgColor={"#eeeef5"}>
+            <Badge ml={"10vw"} p={"6px"} textAlign={"center"} rounded="full" px="2" h={"4vh"}fontSize="12px" fontWeight={"700"} bgColor={"#eeeef5"}>
               {user_name}
               <Icon as={AiFillStar} h={3} w={3} color={"#329c92"} alignSelf={'center'} />
               <span  style={{ color: "#66668e", fontWeight: "lighter" , paddingLeft:"3px"}}>{createdAt}</span>
@@ -76,8 +76,9 @@ export const IndiFiles = ({ file, name, description, user_name,_id,createdAt  })
               fontSize="md"
               fontWeight="semibold"
               as="h4"
-              mt={"2vh"}
+              m={"2vh auto"}
               lineHeight="tight"
+              
               isTruncated>
               {name}
             </Box>
@@ -93,13 +94,13 @@ export const IndiFiles = ({ file, name, description, user_name,_id,createdAt  })
             </Tooltip>
           </Flex>
 
-          <Flex mt={"2vh"} direction={"column"} align={"start"}>
-            <Box fontSize="sm" width={"80%"} color={useColorModeValue('gray.800', 'white')}>
-              <HStack>
-                <Box as="span" color={'gray.600'} fontSize="sm">
-                  Description : 
-                </Box>
-                <Text fontWeight={"bold"} ml={"0.5vw"}>
+          <Flex mb={"1vh"} direction={"column"} align={"start"}>
+            <Box alignSelf={"center"} fontSize="sm" width={"80%"} color={useColorModeValue('gray.800', 'white')}>
+              <HStack align={"center"} >
+                {/* <Box as="span" color={'gray.600'} fontSize="sm">
+                  
+                </Box> */}
+                <Text textAlign={"center"} fontWeight={"bold"} ml={"0.5vw"}>
                   {description}
                 </Text>
               </HStack>

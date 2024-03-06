@@ -27,7 +27,7 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from '@chakra-ui/icons'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 
 export const NavInside = ({img}) => {
 
@@ -60,6 +60,9 @@ export const NavInside = ({img}) => {
         </Flex>
         <Flex pos={"relative"} left={"7vw"} flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
           <Text
+          onClick={()=>{
+            navigate("/inside")
+          }}
             textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
             fontFamily={'heading'}
             color={useColorModeValue('gray.800', 'white')}>
@@ -86,14 +89,18 @@ export const NavInside = ({img}) => {
 
           >
             <Box w='4vw' cursor={"pointer"} color={"#2c3338"} _hover={{ color: "#8c8f94" }}>
-              <Text align={"center"} fontSize={"14px"}>
+              <Text onClick={()=>{
+                navigate("/inside")
+              }} align={"center"} fontSize={"14px"}>
                 View
               </Text>
             </Box>
             <Box w='4vw' cursor={"pointer"} color={"#2c3338"} _hover={{ color: "#8c8f94" }}>
-              <Text align={"center"} fontSize={"14px"}>
-                Upload
-              </Text>
+                <Text onClick={()=>{
+                  navigate("/upload")
+                }} align={"center"} fontSize={"14px"}>
+                  Upload
+                </Text>
             </Box>
           </HStack>
 
