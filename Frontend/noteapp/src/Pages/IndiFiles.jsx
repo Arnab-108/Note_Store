@@ -24,6 +24,7 @@ import { BsHeartFill, BsHeart } from "react-icons/bs"
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { deleteFile } from '../Redux/FileReducer/action';
+import { FileEdit } from '../MainComponents/FileEdit';
 export const IndiFiles = ({ file, name, description, user_name,_id,createdAt  }) => {
   const [liked, setLiked] = useState(false)
   const toast = useToast()
@@ -108,7 +109,9 @@ export const IndiFiles = ({ file, name, description, user_name,_id,createdAt  })
             <Box ml={"2vw"} mt={"5vh"} fontSize="md" fontWeight={"semibold"} color={useColorModeValue('gray.800', 'white')}>
               <HStack  gap={"8vw"}>
                 <Button onClick={()=>{showFile(file)}}>View</Button>
-                <Button>Edit</Button>
+                <Button>
+                  <FileEdit />
+                </Button>
               </HStack>
             </Box>
           </Flex>
