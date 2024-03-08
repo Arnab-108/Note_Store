@@ -28,10 +28,15 @@ import {
 } from "@chakra-ui/react";
 import { useToast } from '@chakra-ui/react'
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
+import { patchFile } from '../Redux/FileReducer/action';
 
-export const FileEdit = () => {
+export const FileEdit = ({id}) => {
+    const toast = useToast()
     const [isOpen, setIsOpen] = useState(false)
+    const [data,setData] = useState("")
+    const dispatch = useDispatch()
+    const file = useSelector((store) => store.fileReducer.file)
     const handleOpen = () => {
         setIsOpen(true);
     }
@@ -39,11 +44,46 @@ export const FileEdit = () => {
     const handleClose = () => {
         setIsOpen(false);
     }
+
+    const handleChange = (e) => {
+        const { name, value, files } = e.target;
+        const file = files ? files[0] : null; // Get file if exists
+        setData((prev) => ({ ...prev, [name]: file || value })); // Update data state
+    }
+
+    const handleSubmit=()=>{
+        const formData = new FormData();
+        // Append each key-value pair to formData
+        Object.entries(data).forEach(([key, value]) => {
+            formData.append(key, value);
+        });
+        console.log(formData, "form")
+        // Dispatch editUser action with formData
+        dispatch(patchFile(formData,id)).then(() => {
+            toast({
+                title: "File Edited Successfully!!",
+                status: "success",
+                duration: 2000,
+                isClosable: true,
+                position: "top-right"
+            })
+            setIsOpen(false)
+            // Handle navigation or other actions upon successful edit
+        });
+
+    }
+    useEffect(()=>{
+        const data = file?.find((el)=> el._id===id)
+        setData(data)
+    },[])
+    console.log(file,"file")
+    console.log(data,"data")
+    console.log(id,"id")
   return (
     <>
         <Center onClick={handleOpen} color={"#2c3338"} as={'a'} fontSize={'sm'} fontWeight={400}>
                 EDIT
-            </Center>
+        </Center>
 
             <Modal
                 isOpen={isOpen}
@@ -84,14 +124,14 @@ export const FileEdit = () => {
                                     <Input
                                         name="name"
                                         placeholder="Name"
-                                        //value={data?.name}
+                                        value={data?.name}
                                         h={"50px"}
                                         fontSize="16px"
                                         focusBorderColor="rgb(206, 206, 223)"
                                         borderColor={"rgb(206, 206, 223)"}
                                         rounded="2xl"
                                         mb={"5px"}
-                                        //onChange={handleChange}
+                                        onChange={handleChange}
                                     />
                                 </InputGroup>
 
@@ -100,16 +140,16 @@ export const FileEdit = () => {
                                         Description
                                     </InputLeftAddon>
                                     <Input
-                                        name="phone"
-                                        placeholder="Phone"
-                                        //value={data?.phone}
+                                        name="description"
+                                        placeholder="Description"
+                                        value={data?.description}
                                         h={"50px"}
                                         fontSize="16px"
                                         focusBorderColor="rgb(206, 206, 223)"
                                         borderColor={"rgb(206, 206, 223)"}
                                         rounded="2xl"
                                         mb={"5px"}
-                                        //onChange={handleChange}
+                                        onChange={handleChange}
                                     />
                                 </InputGroup>
                             
@@ -118,7 +158,7 @@ export const FileEdit = () => {
                                         File
                                     </InputLeftAddon>
                                     <Input
-                                        name="avatar"
+                                        name="file"
                                         type='file'
                                         placeholder='Upload Image'
                                         height={"3vh"}
@@ -129,13 +169,13 @@ export const FileEdit = () => {
                                         rounded="2xl"
                                         mb={"5px"}
                                         paddingTop={"10px"}
-                                        //onChange={handleChange}
+                                        onChange={handleChange}
                                     />
                                 </InputGroup>
                             </Box>
                             <Button
                                 //isLoading={loading}
-                                //onClick={handleSubmit}
+                                onClick={handleSubmit}
                                 bgColor={"blue.500"}
                                 width="100%"
                                 color={"white"}

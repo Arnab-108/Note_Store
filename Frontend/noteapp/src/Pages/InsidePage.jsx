@@ -33,10 +33,13 @@ export const InsidePage = () => {
   console.log(img,"img")
   return (
     <>
+    <Box height={"100vh"} bg={"#e5eaea"}>
         <NavInside img={img} />
-        <Box>
+        <Box >
           <View />
         </Box>
+
+    </Box>
     </>
   )
 }

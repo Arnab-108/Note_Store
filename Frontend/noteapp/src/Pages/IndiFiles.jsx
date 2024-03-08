@@ -110,7 +110,7 @@ export const IndiFiles = ({ file, name, description, user_name,_id,createdAt  })
               <HStack  gap={"8vw"}>
                 <Button onClick={()=>{showFile(file)}}>View</Button>
                 <Button>
-                  <FileEdit />
+                  <FileEdit id={_id} />
                 </Button>
               </HStack>
             </Box>
