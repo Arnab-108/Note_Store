@@ -25,6 +25,7 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { deleteFile } from '../Redux/FileReducer/action';
 import { FileEdit } from '../MainComponents/FileEdit';
+import { readableForm } from './date';
 export const IndiFiles = ({ file, name, description, user_name,_id,createdAt  }) => {
   const [liked, setLiked] = useState(false)
   const toast = useToast()
@@ -53,7 +54,8 @@ export const IndiFiles = ({ file, name, description, user_name,_id,createdAt  })
 
       <Box
         bg={useColorModeValue('white', 'gray.800')}
-        maxW="sm"
+        maxW="md"
+        h={"75vh"}
         width={"25vw"}
         borderWidth="1px"
         rounded="lg"
@@ -64,12 +66,12 @@ export const IndiFiles = ({ file, name, description, user_name,_id,createdAt  })
             roundedTop="lg"
             ml={"5vw"}
           />
-        <Box p="6">
-          <Box pos={"relative"} right={"8vw"} >
+        <Box p="6" mt={"4vh"}>
+          <Box pos={"relative"} right={"8vw"}  >
             <Badge ml={"10vw"} p={"6px"} textAlign={"center"} rounded="full" px="2" h={"4vh"}fontSize="12px" fontWeight={"700"} bgColor={"#eeeef5"}>
               {user_name}
-              <Icon as={AiFillStar} h={3} w={3} color={"#329c92"} alignSelf={'center'} />
-              <span  style={{ color: "#66668e", fontWeight: "lighter" , paddingLeft:"3px"}}>{createdAt}</span>
+              <Icon as={AiFillStar} h={3} w={3} ml={"5px"} color={"#329c92"} alignSelf={'center'} />
+              <span  style={{ color: "#66668e", fontWeight: "lighter" }}>{createdAt} UTC</span>
             </Badge>
           </Box>
           <Flex mt="1" justifyContent="space-between" alignContent="center">
@@ -97,7 +99,7 @@ export const IndiFiles = ({ file, name, description, user_name,_id,createdAt  })
 
           <Flex mb={"1vh"} direction={"column"} align={"start"}>
             <Box alignSelf={"center"} fontSize="sm" width={"80%"} color={useColorModeValue('gray.800', 'white')}>
-              <HStack align={"center"} >
+              <HStack align={"center"} height={"5vh"} >
                 {/* <Box as="span" color={'gray.600'} fontSize="sm">
                   
                 </Box> */}
