@@ -44,7 +44,7 @@ export const Login = () => {
             password
         }
 
-        axios.post("http://localhost:8080/user/login",obj).then((res)=>{
+        axios.post("https://render-store.onrender.com/user/login",obj).then((res)=>{
             console.log(res)
             if(res.data.msg==="Logged in successfully!"){
                 localStorage.setItem("token",res.data.token)

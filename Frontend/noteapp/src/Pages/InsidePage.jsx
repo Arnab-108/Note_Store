@@ -29,7 +29,7 @@ export const InsidePage = () => {
   
   console.log(data)
   console.log(data?.avatar)
-  const img = `http://localhost:8080/${data?.avatar}`
+  const img = `https://render-store.onrender.com/${data?.avatar}`
   console.log(img,"img")
   return (
     <>

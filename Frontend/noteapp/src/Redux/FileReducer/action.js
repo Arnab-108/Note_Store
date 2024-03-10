@@ -5,7 +5,7 @@ const token = localStorage.getItem("token")
 
 export const getFile=(dispatch)=>{
     dispatch({type:FILE_LOADING})
-    axios.get("http://localhost:8080/pdf",{
+    axios.get("https://render-store.onrender.com/pdf",{
         headers:{
             Authorization: `Baerer ${token}`
         }
@@ -19,7 +19,7 @@ export const getFile=(dispatch)=>{
 
 export const postFile =(obj)=>(dispatch)=>{
     dispatch({type:FILE_LOADING})
-    return axios.post("http://localhost:8080/pdf/upload",obj,{
+    return axios.post("https://render-store.onrender.com/pdf/upload",obj,{
         headers:{
             Authorization: `Baerer ${token}`,
             'Content-Type':'multipart/form-data'
@@ -34,7 +34,7 @@ export const postFile =(obj)=>(dispatch)=>{
 
 export const patchFile=(obj,id)=>(dispatch)=>{
     dispatch({type:FILE_LOADING})
-    return axios.patch(`http://localhost:8080/pdf/${id}`,obj,{
+    return axios.patch(`https://render-store.onrender.com/pdf/${id}`,obj,{
         headers:{
             Authorization:`Baerer ${token}`
         }
@@ -49,7 +49,7 @@ export const patchFile=(obj,id)=>(dispatch)=>{
 
 export const deleteFile=(id)=>(dispatch)=>{
     dispatch({type:FILE_LOADING})
-    return axios.delete(`http://localhost:8080/pdf/${id}`,{
+    return axios.delete(`https://render-store.onrender.com/pdf/${id}`,{
         headers:{
             Authorization:`Baerer ${token}`
         }

@@ -49,7 +49,7 @@ export const Signup = () => {
             age
         }
 
-        axios.post("http://localhost:8080/user/signup",obj).then((res)=>{
+        axios.post("https://render-store.onrender.com/user/signup",obj).then((res)=>{
             console.log(res)
             if(res.data.msg==="User registered successfully"){
                 toast({

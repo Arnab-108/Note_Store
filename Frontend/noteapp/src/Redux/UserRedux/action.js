@@ -4,7 +4,7 @@ import { defineStyle } from "@chakra-ui/react"
 const token = localStorage.getItem("token")
 export const getUser=(dispatch)=>{
     dispatch({type:USER_LOADING})
-    axios.get(`http://localhost:8080/user`,{
+    axios.get(`https://render-store.onrender.com/user`,{
         headers:{
             Authorization: `Barer ${token}`
         }
@@ -18,7 +18,7 @@ export const getUser=(dispatch)=>{
 
 export const editUser= (obj,id)=>(dispatch)=>{
     dispatch({type:USER_LOADING})
-    return axios.patch(`http://localhost:8080/user/${id}`,obj,{
+    return axios.patch(`https://render-store.onrender.com/user/${id}`,obj,{
         headers:{
             Authorization: `Barer ${token}`
         }

@@ -26,7 +26,7 @@ export const UserProfile = () => {
   },[dispatch])
   // console.log(user[0].avatar)
   console.log(data,'data1')
-  const img = `http://localhost:8080/${data?.avatar}`
+  const img = `https://render-store.onrender.com/${data?.avatar}`
   console.log(data?.avatar)
   return (
     <>

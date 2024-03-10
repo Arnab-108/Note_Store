@@ -34,7 +34,7 @@ export const IndiFiles = ({ file, name, description, user_name,_id,createdAt  })
   console.log(file,_id)
 
   const showFile=(file)=>{
-    window.open(`http://localhost:8080/${file}` , "_black","noreferrer")
+    window.open(`https://render-store.onrender.com/${file}` , "_black","noreferrer")
   }
 
   const DeleteFile=()=>{
