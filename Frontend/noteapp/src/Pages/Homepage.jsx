@@ -38,7 +38,7 @@ export const Homepage = () => {
       <Box pos={'relative'} top={'15vh'}>
         <Body1 />
       </Box>
-      <Box pos={"relative"} top={'25vh'}>
+      <Box pos={"relative"} top={['100vh','79vh','72vh','55vh','50vh','15vh','25vh']}>
         <Footer />
       </Box>
 

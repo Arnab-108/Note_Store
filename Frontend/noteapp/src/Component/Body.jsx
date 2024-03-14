@@ -4,7 +4,7 @@ import React from 'react'
 export const Body = () => {
   return (
     <>
-        <Box height={"80vh"} width={"100%"} >
+        <Box height={["40vh","40vh","60vh","80vh","80vh"]} width={"100%"} >
             <Image 
                 boxSize={"100%"}
                 objectFit={"cover"}

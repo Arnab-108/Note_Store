@@ -6,18 +6,18 @@ export const Body1 = () => {
         <>
             <Box width={"100%"} height={"70vh"} >
                 <Box>
-                    <Heading as='h2' size='2xl' noOfLines={2}>
+                    <Heading as='h2' size={['xl','xl','xl','2xl']} pos={"relative"} left={['3vw','3vw','0vw','0vw','0vw']} noOfLines={2}>
                         Comprehensive underneath,
                     </Heading>
-                    <Center pos={"relative"} top={"1vh"}>
-                        <Heading as='h2' size='2xl'>
+                    <Center pos={"relative"} top={['0px','0px','0px','0px',"1vh"]} left={['3vw','3vw','0vw','0vw','0vw']}>
+                        <Heading as='h2' size={['xl','xl','xl','2xl']}>
                             simple on the surface
                         </Heading>
                     </Center>
                 </Box>
                 <Box width={"70%"} margin={"10vh auto"} paddingBottom={"5vh"} borderBottom={"0.5px solid lightgrey"}>
-                    <Grid  templateColumns='repeat(3, 1fr)' gap={6} >
-                        <GridItem width={"17vw"}>
+                    <Grid  templateColumns={['repeat(1, 1fr)','repeat(1, 1fr)','repeat(3, 1fr)','repeat(3, 1fr)','repeat(3, 1fr)']} gap={6} >
+                        <GridItem width={["90vw","90vw","17vw","17vw","17vw"]}>
                             <Box>
                                 <HStack gap={6}>
                                     <Avatar size={"xs"} src='https://simplenoteblog.files.wordpress.com/2020/07/ic_cloud-sync.png?w=72' />
@@ -26,13 +26,13 @@ export const Body1 = () => {
                                     </Heading>
                                 </HStack>
                                 <Center mt={"2vh"}>
-                                    <Text align={"left"} fontSize={"16px"} lineHeight={"1.6em"} color={"#646970"}>
+                                    <Text align={["left"]} fontSize={"16px"} lineHeight={"1.6em"} color={"#646970"}>
                                     Notes stay updated across all your devices, automatically and in real time. There’s no “sync” button: It just works.
                                     </Text>
                                 </Center>
                             </Box>
                         </GridItem>
-                        <GridItem width={"17vw"}>
+                        <GridItem width={["90vw","90vw","17vw","17vw","17vw"]}>
                             <Box>
                                 <HStack gap={6}>
                                     <Avatar size={"xs"} src='https://simplenoteblog.files.wordpress.com/2020/07/ic_tags.png?w=72' />
@@ -47,7 +47,7 @@ export const Body1 = () => {
                                 </Center>
                             </Box>
                         </GridItem>
-                        <GridItem width={"17vw"}>
+                        <GridItem width={["90vw","90vw","17vw","17vw","17vw"]}>
                             <Box>
                                 <HStack gap={6}>
                                     <Avatar size={"xs"} src='https://simplenoteblog.files.wordpress.com/2020/07/ic_collaborate.png?w=72' />
@@ -62,7 +62,7 @@ export const Body1 = () => {
                                 </Center>
                             </Box>
                         </GridItem>
-                        <GridItem width={"17vw"}>
+                        <GridItem width={["90vw","90vw","17vw","17vw","17vw"]}>
                             <Box>
                                 <HStack gap={6}>
                                     <Avatar size={"xs"} src='https://simplenoteblog.files.wordpress.com/2020/07/ic_history.png?w=72' />
@@ -77,7 +77,7 @@ export const Body1 = () => {
                                 </Center>
                             </Box>
                         </GridItem>
-                        <GridItem width={"17vw"}>
+                        <GridItem width={["90vw","90vw","17vw","17vw","17vw"]}>
                             <Box>
                                 <HStack gap={6}>
                                     <Avatar size={"xs"} src='https://simplenoteblog.files.wordpress.com/2020/07/ic_notes.png?w=72' />
@@ -92,7 +92,7 @@ export const Body1 = () => {
                                 </Center>
                             </Box>
                         </GridItem>
-                        <GridItem width={"17vw"}>
+                        <GridItem width={["90vw","90vw","17vw","17vw","17vw"]}>
                             <Box>
                                 <HStack gap={6}>
                                     <Avatar size={"xs"} src='https://simplenoteblog.files.wordpress.com/2020/07/ic_info.png?w=72' />
