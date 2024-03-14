@@ -20,6 +20,7 @@ import {
     Avatar,
     PopoverBody,
     useToast,
+    Image,
 } from '@chakra-ui/react'
 import {
     HamburgerIcon,
@@ -32,7 +33,7 @@ import { EditModal } from './EditModal'
 export const UserNav = () => {
     const { isOpen, onToggle } = useDisclosure()
     return (
-        <Box margin={"auto"} width={"93vw"} >
+        <Box margin={"auto"} width={"93vw"} height={"9vh"}>
             <Flex
                 bg={useColorModeValue('white', 'gray.800')}
                 color={useColorModeValue('gray.600', 'white')}
@@ -54,14 +55,9 @@ export const UserNav = () => {
                         aria-label={'Toggle Navigation'}
                     />
                 </Flex>
-                <Flex pos={"relative"} left={"7vw"} flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+                <Flex height={"100%"} pos={"relative"} left={"7vw"} flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
                     <Link to={"/inside"}>
-                        <Text
-                            textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-                            fontFamily={'heading'}
-                            color={useColorModeValue('gray.800', 'white')}>
-                            Logo
-                        </Text>
+                    <Avatar border={"1px solid black"} size='md' name='Segun Adebayo' src='https://www.luisilustra.com/portfolio/file/file2012_logo.png' />
                     </Link>
                 </Flex>
 
