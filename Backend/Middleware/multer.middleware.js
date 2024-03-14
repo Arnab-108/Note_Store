@@ -2,15 +2,7 @@ const multer = require('multer')
 // const multerS3 = require("multer-s3")
 // const aws = require("aws-sdk")
 
-// aws.config.update({
-//     accessKeyId: 'AKIAXYKJXMW3RTFOZ35Q',
-//     secretAccessKey: '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',
-//     region: 'ap-south-1'
-//   });
 
-// const s3 = new aws.S3({
-    
-// })
 
 
 const storage = multer.diskStorage({
